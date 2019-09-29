@@ -1,63 +1,63 @@
 <html><head>
 	<title>Canvas HTML</title>
 <style type="text/css">
-	canvas {
-		background-color: #B0E0E6;
-		border: solid 1px;
-	}
+	canvas{
+	 background-color: #ABC7D5;
 </style></head>
 
+
 <body>
-	<canvas id="canvas" width="800" height="450"></canvas>
-	<script type="text/javascript">
-		var c = document.getElementById('canvas');
-		var ctx = c.getContext('2d');
+<canvas width="800" height="450" id="canvas"></canvas>
 
-		//lingkaran1
-		ctx.beginPath();
-		ctx.arc(400, 225, 130, 0, 2*Math.PI);
-		ctx.fillStyle = "#8B0000";
-		ctx.fill();
-		ctx.strokeStyle= "#FFFFFF";
-		ctx.stroke();
+<script type="text/javascript">
+	var c = document.getElementById('canvas');
+	var ctx =c.getContext('2d');
 
-		//lingkaran2
-		ctx.beginPath();
-		ctx.arc(400, 225, 90, 0, 2*Math.PI);
-		ctx.fillStyle = "#FFA500";
-		ctx.fill();
+//lingkaranbesar
+	ctx.beginPath();
+    ctx.arc(400, 225, 150, 0, Math.PI * 2);
+    ctx.fillStyle = "#800000"
 
-		//persegi v1
-		// ctx.beginPath();		
-		// ctx.fillStyle = "#708090";		
-		// ctx.fillRect(360,185,80,80);		
-		// ctx.strokeRect(390,235,120,120);
-		// ctx.strokeStyle= "#FFFFFF";
+    ctx.lineWidth=5;
+	ctx.strokeStyle="white";
+    ctx.fill();
+    ctx.stroke();
 
-		//persegi v2
-		ctx.beginPath();		
-		ctx.fillStyle = "#FFFFFF";		
-		ctx.fillRect(355,180,90,90);				
-		ctx.fillStyle = "#708090";		
-		ctx.fillRect(360,185,80,80);		
-		
-		//segitiga
-		ctx.beginPath();
-		ctx.moveTo(50,225);
-		ctx.lineTo(150,120);
-		ctx.lineTo(150,330);
-		ctx.fillStyle = "#228B22";
-		ctx.fill();
+//lingkarankecil
+	ctx.beginPath();
+    ctx.arc(400, 225, 100, 0, Math.PI * 2);
+    ctx.fillStyle = "#FFA500";
+    ctx.fill();
 
-		//segitiga
-		ctx.beginPath();
-		ctx.moveTo(750,225);
-		ctx.lineTo(650,120);
-		ctx.lineTo(650,330);
-		ctx.fillStyle = "#228B22";
-		ctx.fill();
+//kotak
+	ctx.beginPath();
+	 ctx.rect(350, 175, 100, 100);
+	 ctx.fillStyle = "#469FB4";
+	 ctx.lineWidth=8;
+	 ctx.strokeStyle="white";
+	 
+	 ctx.strokeRect(350, 175, 100, 100);
+	 
+	 ctx.fill();
+	 
 
-	</script>
+//segitiga2
+	ctx.beginPath();
+    ctx.moveTo(670, 135);
+    ctx.lineTo(770, 220);
+    ctx.lineTo(670, 325);
+    ctx.fillStyle = "#5A8E23";
+    ctx.fill();
 
+
+//segitiga
+	ctx.beginPath();
+    ctx.moveTo(130, 135);
+    ctx.lineTo(30, 220);
+    ctx.lineTo(130, 325);
+    ctx.fillStyle = "#5A8E23";
+    ctx.fill();
+	 
+</script>
 
 </body></html>
