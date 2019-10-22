@@ -1,33 +1,46 @@
 body {
   font-family: 'Montserrat', sans-serif;
-  background-color: #eee;
+    overflow: hidden;
 }
 
 /* navbar */
 .sidebar {
   height: 100vh;
-  background: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .9)), url(assets/2.jpg);
+  background-color: rgb(0, 0, 0, 0.5);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  box-shadow: 5px 7px 25px #999;
+}
+
+.noselect {
+             -webkit-touch-callout: none; /* iOS Safari */
+            -webkit-user-select: none; /* Safari */
+            -khtml-user-select: none; /* Konqueror HTML */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
 }
 
 .top-navbar{
-  background: linear-gradient(rgba(0, 0, 7, .7), rgba(0, 0, 7, .9));
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  box-shadow: 5px 7px 25px #999;
+  width: 100%;
+  padding: 20px;
+  position: fixed;
+  top: 0px;
+  transition: .5s;
 }
 
 li, a, ul{
             font-size: 10px;
-        }
+            color: black;
+}
+
+
 
 .bottom-border {
   border-bottom: 1px groove #eee;
 }
+
 
 .sidebar-link {
   transition: all .4s;
@@ -78,22 +91,4 @@ li, a, ul{
     position: static;
   }
 }
-/* end of navbar */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
