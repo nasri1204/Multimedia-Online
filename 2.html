@@ -10,14 +10,73 @@
 
     <title>Click mouse and draw Line </title>
     <style type="text/css">
-      canvas {
-      background-color: #ccc;
-          }
+      #canvas{
+           background-color: white;
+
+
+       }
+      .sidebar {
+          height: 100vh;
+          background: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .9)), url(assets/2.jpg);
+          opacity: 50%;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: cover;
+       }
     </style>
 
 </head>
 
 <body>
+
+<canvas height="640" width="1300" id="canvas"></canvas>
+<script type="text/javascript">
+  
+  var c=document.getElementById('canvas');
+  var ctx=c.getContext('2d');
+
+  var lines=[];
+
+  document.body.addEventListener('mousedown',drawline);
+  function drawline(e)
+  {
+    var x=e.offsetX;
+    var y=e.offsetY;
+    if(lines.length==0)
+    {
+      ctx.moveTo(x,y);
+    }
+    ctx.lineTo(x,y);
+    ctx.lineWidth=3;
+    ctx.strokeStyle='#2C3E50';
+    ctx.stroke();
+    lines.push([x,y]);
+    var sprite={
+      x:lines[0][0],
+      y:lines[0][1]
+    };
+    var target={
+      x:lines[lines.length-1][0],
+      y:lines[lines.length-1][1]
+    };
+    isCloseTo(sprite,target);
+  }
+
+  function isCloseTo(sprite,target)
+  {
+    var dist=Math.sqrt(((sprite.x-target.x)*(sprite.x-target.x))+((sprite.y-target.y)*(sprite.y-target.y)));
+    console.log(dist);
+    if(lines.length>1 && dist<6)
+    {
+      console.log('make polygon');
+      ctx.lineTo(target.x,target.y);
+      ctx.fillStyle = '#E74C3C';
+          ctx.fill();
+          lines=[];
+    }
+  }
+
+</script>
     
     <!-- navbar -->
     <nav class="navbar navbar-expand-md navbar-light">
@@ -45,7 +104,7 @@
 
                 <li class="nav-item"><a href="4.html" class="nav-link text-light p-2 mb-2 sidebar-link"><i class="fas fa-file-code text-light fa-lg mr-3"></i>Praktikum 4 - Puzzle Project</a></li>
 
-                <li class="nav-item"><a href="5.html" class="nav-link text-light p-2 mb-2 sidebar-link"><i class="fas fa-file-code text-light fa-lg mr-3"></i>Praktikum 5 - ..</a></li>
+                <li class="nav-item"><a href="5.html" class="nav-link text-light p-2 mb-2 sidebar-link"><i class="fas fa-file-code text-light fa-lg mr-3"></i>Praktikum 5 - Animasi - Motion Tween</a></li>
 
                 <li class="nav-item"><a href="6.html" class="nav-link text-light p-2 mb-2 sidebar-link"><i class="fas fa-file-code text-light fa-lg mr-3"></i>Praktikum 6 - ..</a></li>
 
@@ -55,79 +114,9 @@
 
               </ul>
             </div>
-            <!-- end of sidebar -->
 
-            <!-- top-nav -->
-            <div class="col-xl-10 col-lg-9 col-md-8 ml-auto bg-dark fixed-top py-2 top-navbar">
-              <div class="row align-items-center">
-                <div class="col-md-6">
-                    <a class="text-light text-uppercase mb-4" style="font-size: 20px;"><i class="fab fa-hire-a-helper"></i>asil</a>
-                    <a class="text-light text-uppercase mb-4" style="font-size: 20px;"><i class="fab fa-product-hunt"></i>raktikum</a> 
-                    <a class="text-light text-uppercase mb-4" style="font-size: 20px;"><i class="fab fa-monero"></i>ultimedia</a>
-                    <a class="text-light text-uppercase mb-4" style="font-size: 20px;"><i class="fab fa-opera"></i>nline</a>
-                </div>
-                
-            <!-- end of top-nav -->
-          </div>
-        </div>
       </div>
     </nav>
-
-
-
-     
-    <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
-    <div class="row pt-md-5 mt-md-3 mb-5">        
-    <div class="col-xl-6 col-sm-7 p-4">
-                
-
-<canvas height="450" width="800" id="canvas"></canvas>
-<script type="text/javascript">
-  var c=document.getElementById('canvas');
-  var ctx=c.getContext('2d');
-
-  var lines=[];
-
-  document.body.addEventListener('mousedown',drawline);
-  function drawline(e)
-  {
-    var x=e.offsetX;
-    var y=e.offsetY;
-    if(lines.length==0)
-    {
-      ctx.moveTo(x,y);
-    }
-    ctx.lineTo(x,y);
-    ctx.lineWidth=2;
-    ctx.strokeStyle='black';
-    ctx.stroke();
-    lines.push([x,y]);
-    var sprite={
-      x:lines[0][0],
-      y:lines[0][1]
-    };
-    var target={
-      x:lines[lines.length-1][0],
-      y:lines[lines.length-1][1]
-    };
-    isCloseTo(sprite,target);
-  }
-
-  function isCloseTo(sprite,target)
-  {
-    var dist=Math.sqrt(((sprite.x-target.x)*(sprite.x-target.x))+((sprite.y-target.y)*(sprite.y-target.y)));
-    console.log(dist);
-    if(lines.length>1 && dist<6)
-    {
-      console.log('make polygon');
-      ctx.lineTo(target.x,target.y);
-      ctx.fillStyle = 'lightblue';
-          ctx.fill();
-          lines=[];
-    }
-  }
-
-</script>
 
 
    
