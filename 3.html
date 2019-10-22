@@ -16,37 +16,41 @@
         }
 
         li, a, ul{
-          font-size: 10px;
+          font-size: 11px;
+          color: black;
         }
       #layer1
         {
         z-index: 1;
         position: absolute;
         width: 100%;
+        background-color: white;
         }
       #layer2
         {
         z-index: 3;
         position: absolute;
         width: 100%;
+
         }
       #layer3
         {
         z-index: 2;
         position: absolute;
         width: 100%;
+
         }
     </style>
 
 </head>
 
 <body>
-  
 <canvas id="layer1" width="279" height="625"></canvas>
 <canvas id="layer2" width="279" height="625"></canvas>
 <canvas id="layer3" width="279" height="625"></canvas>
 
-    <script type="text/javascript">
+    <script class="pattern" type="text/javascript">
+
   
   var layer1,layer2,layer3,ctx1,screenW, screenH;
     
@@ -126,10 +130,10 @@ init();
           <div class="row">
 
             <!-- sidebar -->
-            <div class="col-xl-2 col-lg-3 col-md-4 sidebar fixed-top">
+            <div  class="col-xl-2 col-lg-3 col-md-4 sidebar fixed-top">
               <div class="bottom-border pb-3">
                 <br>
-                <a class="text-light" style="font-size: 20px;"><i class="fab fa-html5 text-light fa-lg mr-3"></i>Nasri</a>
+                <a class="text-light" style="font-size: 20px;" ><i class="fab fa-html5 text-light fa-lg mr-3"></i>Nasri</a>
                 <br>
                 <a class="text-light" style="font-size: 20px;">1700016065</a>
                 <a class="text-light">nasri1700016065@webmai.uad.ac.id</a>
@@ -143,7 +147,7 @@ init();
 
                 <li class="nav-item"><a href="4.html" class="nav-link text-light p-2 mb-2 sidebar-link"><i class="fas fa-file-code text-light fa-lg mr-3"></i>Praktikum 4 - Puzzle Project</a></li>
 
-                <li class="nav-item"><a href="5.html" class="nav-link text-light p-2 mb-2 sidebar-link"><i class="fas fa-file-code text-light fa-lg mr-3"></i>Praktikum 5 - ..</a></li>
+                <li class="nav-item"><a href="5.html" class="nav-link text-light p-2 mb-2 sidebar-link"><i class="fas fa-file-code text-light fa-lg mr-3"></i>Praktikum 5 - Animasi - Motion Tween</a></li>
 
                 <li class="nav-item"><a href="6.html" class="nav-link text-light p-2 mb-2 sidebar-link"><i class="fas fa-file-code text-light fa-lg mr-3"></i>Praktikum 6 - ..</a></li>
 
@@ -156,21 +160,12 @@ init();
             <!-- end of sidebar -->
 
             <!-- top-nav -->
-            <div class="col-xl-10 col-lg-9 col-md-8 ml-auto bg-dark fixed-top py-2 top-navbar">
-              <div class="row align-items-center">
-                <div class="col-md-6">
-                    <a class="text-light text-uppercase mb-4" style="font-size: 20px;"><i class="fab fa-hire-a-helper"></i>asil</a>
-                    <a class="text-light text-uppercase mb-4" style="font-size: 20px;"><i class="fab fa-product-hunt"></i>raktikum</a> 
-                    <a class="text-light text-uppercase mb-4" style="font-size: 20px;"><i class="fab fa-monero"></i>ultimedia</a>
-                    <a class="text-light text-uppercase mb-4" style="font-size: 20px;"><i class="fab fa-opera"></i>nline</a>
-                </div>
-                
+            
             <!-- end of top-nav -->
-          </div>
-        </div>
+
       </div>
     </nav>
-
+<script src="js/canvas_black_ball.js" ></script>
     
    
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
