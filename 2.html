@@ -51,6 +51,7 @@
   document.body.addEventListener('mousedown',drawline);
   function drawline(e)
   {
+  	this.color = colorArray[Math.floor(Math.random() * colorArray.length)];
     var x=e.offsetX;
     var y=e.offsetY;
     if(lines.length==0)
@@ -59,7 +60,7 @@
     }
     ctx.lineTo(x,y);
     ctx.lineWidth=3;
-    ctx.strokeStyle='#2C3E50';
+    ctx.strokeStyle= this.color;
     ctx.stroke();
     lines.push([x,y]);
     var sprite={
