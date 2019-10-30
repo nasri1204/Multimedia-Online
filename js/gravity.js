@@ -6,11 +6,13 @@ canvas.height = window.innerHeight;
 
 
 var colors = [
-	'#A7557A',
-	'#F6EEAE',
-	'#F494BF',
-	'#62B3C1',
-	'#5D9CA7'
+	'#FFA53C',
+	'#397368',
+	'#B8D971',
+	'#F2EC99',
+	'#0278FF',
+	'#F2F2F2',
+	'#40012F'
 ];
 
 var gravity = 0.2;
