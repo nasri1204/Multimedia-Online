@@ -1,0 +1,184 @@
+<html>
+  <head>
+   <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>UTS-Mulon</title>
+    <link rel="icon" type="image/jpg" href="html5.png">
+    
+<style type="text/css">
+      body{
+          position : relative;
+          margin: 0px;
+          
+        }
+        #canvas{
+          border: 1px solid;
+          position: absolute;
+          margin: auto;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          opacity: 0.5;
+        }
+
+      #layer1
+        {
+        z-index: 1;
+        position: absolute;
+        width: 100%;
+        }
+      #layer2
+        {
+        z-index: 3;
+        position: absolute;
+        width: 100%;
+
+        }
+      #layer3
+        {
+        z-index: 2;
+        position: absolute;
+        width: 100%;
+
+        }
+</style>
+</head>
+<body>
+
+<div class="loading">
+
+    <span>Nasri</span>
+<br>
+    <span>1700016065</span>
+</div>
+
+<canvas id="layer1"></canvas>
+<canvas id="layer2"></canvas>
+<canvas id="layer3"></canvas>
+
+<script type="text/javascript">
+
+  function init()
+    {
+
+      layer3=document.getElementById('layer3');
+      
+
+      ctx1=layer3.getContext('2d');
+    
+      screenW=window.innerWidth;
+      screenH=window.innerHeight;
+      
+
+      layer3.width=screenW;
+      layer3.height=screenH;
+
+      
+      
+      draw(ctx1, 1550,235,1,400);
+      
+    }
+
+  
+
+  function draw(contex,radius,circleSize,randomSize,totalObject)
+    {
+
+      contex.clearRect(0,0,screenW,screenH);
+      var total_dot=totalObject;
+      var radius=radius;
+      var dots=[];
+      
+      for (var i=1; i<=total_dot; i++)
+        { 
+          
+          sudut =1080/total_dot*i;
+          posx = Math.cos(sudut*(Math.PI/60))*radius/2;
+          posy = Math.sin(sudut*(Math.PI/60))*radius/2;
+          
+          var newPosx=posx+(screenW/2);
+          var newPosy=posy+(screenH/2);
+          
+          var randSize=randomSize;
+          var random1=Math.floor((Math.random()* randSize));
+          var random2=Math.floor((Math.random()* randSize));
+          
+          
+          createCircle(contex,newPosx+random1,newPosy+random2,circleSize)
+        }
+    
+      
+    }
+
+var colorArray = [
+  '#011C40',
+  '#011126',
+  '#032859',
+  '#074973',
+  '#5D8AA6'
+  ];
+    
+  function createCircle(contex,x,y,size)
+    {
+      this.color = colorArray[Math.floor(Math.random() * colorArray.length)]; 
+      contex.beginPath();
+      contex.arc(x,y,size,0,2*Math.PI);
+      contex.strokeStyle = this.color
+      contex.stroke();
+    }
+ 
+init();
+
+</script>
+
+<div class="particle">
+<canvas id="canvas"></canvas>
+<script src="game2.js"></script>
+<script src="animasi.js" ></script>
+</div>
+    
+  
+  </body>
+  <script>
+  window.onload = function () {
+           document.addEventListener("contextmenu", function (e) {
+               e.preventDefault();
+           }, false);
+           document.addEventListener("keydown", function (e) {
+               //document.onkeydown = function(e) {
+               // "I" key
+               if (e.ctrlKey && e.shiftKey && e.keyCode == 73) {
+                   disabledEvent(e);
+               }
+               // "J" key
+               if (e.ctrlKey && e.shiftKey && e.keyCode == 74) {
+                   disabledEvent(e);
+               }
+               // "S" key + macOS
+               if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+                   disabledEvent(e);
+               }
+               // "U" key
+               if (e.ctrlKey && e.keyCode == 85) {
+                   disabledEvent(e);
+               }
+               // "F12" key
+               if (event.keyCode == 123) {
+                   disabledEvent(e);
+               }
+           }, false);
+           function disabledEvent(e) {
+               if (e.stopPropagation) {
+                   e.stopPropagation();
+               } else if (window.event) {
+                   window.event.cancelBubble = true;
+               }
+               e.preventDefault();
+               return false;
+           }
+       }
+//edit: removed ";" from last "}" because of javascript error
+</script>
+</html>
