@@ -1,0 +1,203 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="title icon" href="images/title-img.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Audio Recording</title>
+    <link rel="icon" type="image/jpg" href="assets/html5.png">
+
+        <style type="text/css">
+                .clip{
+                  text-align: center
+                }
+                .btn-danger{
+                    margin: 0px 5px
+                }
+                .sidebar {
+                  height: 100vh;
+                  background: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .9)), url(assets/2.jpg);
+                  background-position: center;
+                  background-repeat: no-repeat;
+                  background-size: cover;
+               }
+        </style>
+
+  </head>
+<body>
+  <div class="card-body text-center">
+    <button id="start" class="btn btn-success">START RECORD</button>&nbsp;
+    <button id="stop" class="btn btn-warning">STOP RECORD</button>
+  </div>
+  <hr>
+<script>
+ if (navigator.mediaDevices) {
+  console.log('getUserMedia supported.');
+
+  var constraints = { audio: true,video:false };
+  var chunks = [];
+
+  navigator.mediaDevices.getUserMedia(constraints)
+  .then(function(stream) {
+
+    var mediaRecorder = new MediaRecorder(stream);
+
+    var record=document.getElementById('start');
+    var stop=document.getElementById('stop');
+
+    record.onclick = function() {
+      mediaRecorder.start();
+      console.log(mediaRecorder.state);
+      console.log("recorder started");
+      record.style.background = "red";
+      record.style.color = "white";
+    }
+
+    stop.onclick = function() {
+      mediaRecorder.stop();
+      console.log(mediaRecorder.state);
+      console.log("recorder stopped");
+      record.style.background = "";
+      record.style.color = "";
+    }
+
+    mediaRecorder.onstop = function(e) {
+      console.log("data available after MediaRecorder.stop() called.");
+
+      var clipName = prompt('Enter a name for your sound clip');
+
+      var clipContainer = document.createElement('article');
+      var clipLabel = document.createElement('p');
+      var audio = document.createElement('audio');
+      var deleteButton = document.createElement('button');
+      var downloadButton = document.createElement('button');
+      var recordedChunks = [];
+      var options = { mimeType: "audio/mp3; codecs=vp9" };
+      mediaRecorder = new MediaRecorder(stream);
+      mediaRecorder.ondataavailable = handleDataAvailable;
+      mediaRecorder.start();
+
+      clipContainer.classList.add('clip');
+      audio.setAttribute('controls', '');
+      deleteButton.innerHTML = "Delete";
+      deleteButton.setAttribute('class', 'btn btn-danger');
+      deleteButton.setAttribute('type', 'button');
+      downloadButton.innerHTML = "Download";
+      downloadButton.setAttribute('class', 'btn btn-primary');
+      downloadButton.setAttribute('type', 'button');
+      clipLabel.innerHTML = clipName;
+
+      clipContainer.appendChild(audio);
+      clipContainer.appendChild(clipLabel);
+      clipContainer.appendChild(deleteButton);
+      clipContainer.appendChild(downloadButton);
+      document.body.appendChild(clipContainer);
+
+      audio.controls = true;
+      var blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
+      chunks = [];
+      var audioURL = URL.createObjectURL(blob);
+      audio.src = audioURL;
+      console.log("recorder stopped");
+
+      deleteButton.onclick = function(e) {
+        evtTgt = e.target;
+        evtTgt.parentNode.parentNode.removeChild(evtTgt.parentNode);
+      }
+
+        downloadButton.onclick = function(e) {
+        var blob = new Blob(recordedChunks, { type: 'mp3'});
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        document.body.appendChild(a);
+        a.style = 'display: none';
+        a.href = url;
+        a.download = 'record.mp3';
+        a.click();
+        window.URL.revokeObjectURL(url);
+      }
+      
+      function handleDataAvailable(e){
+        if(e.data.size > 0){
+          recordedChunks.push(e.data);
+          console.log(recordedChunks);
+          download()
+        }else{
+          // ..
+        }
+      }
+    }
+
+    mediaRecorder.ondataavailable = function(e) {
+      chunks.push(e.data);
+    }
+  })
+  .catch(function(err) {
+    console.log('The following error occurred: ' + err);
+  })
+}
+
+</script>
+    
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-md navbar-light">
+      <button class="navbar-toggler ml-auto mb-2 bg-light" type="button" data-toggle="collapse" data-target="#myNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <div class="container-fluid">
+          <div class="row">
+
+            <!-- sidebar -->
+            <div class="col-xl-2 col-lg-3 col-md-4 sidebar fixed-top">
+              <div class="bottom-border pb-3">
+                <br class="noselect">
+                <a class="text-light noselect" style="font-size: 20px;"><i class="fab fa-html5 text-light fa-lg mr-3"></i>Nasri</a>
+                <a class="text-light noselect" style="font-size: 20px;">1700016065</a>
+                <a class="text-light noselect">nasri1700016065@webmai.uad.ac.id</a>
+              </div>
+              <ul class="navbar-nav flex-column mt-4">
+                <li class="nav-item"><a href="1.html" class="nav-link text-light p-2 mb-2 sidebar-link noselect"><i class="fas fa-file-code text-light fa-lg mr-3"></i>Praktikum 1 - Canvas HTML</a></li>
+
+                <li class="nav-item"><a href="2.html" class="nav-link text-light p-2 mb-2 sidebar-link noselect"><i class="fas fa-file-code text-light fa-lg mr-3"></i>Praktikum 2 - Interaktifitas</a></li>
+
+                <li class="nav-item"><a href="3.html" class="nav-link text-light p-2 mb-2 sidebar-link noselect"><i class="fas fa-file-code text-light fa-lg mr-3"></i>Praktikum 3 - Vector Pattern</a></li>
+
+                <li class="nav-item"><a href="4.html" class="nav-link text-light p-2 mb-2 sidebar-link noselect"><i class="fas fa-file-code text-light fa-lg mr-3"></i>Praktikum 4 - Puzzle Project</a></li>
+
+                <li class="nav-item"><a href="5.html" class="nav-link text-light p-2 mb-2 sidebar-link noselect"><i class="fas fa-file-code text-light fa-lg mr-3 "></i>Praktikum 5 - Animasi - Motion Tween</a></li>
+
+                <li class="nav-item"><a href="6.html" class="nav-link text-light p-2 mb-2 sidebar-link noselect"><i class="fas fa-file-code text-light fa-lg mr-3"></i>Praktikum 6 - Audio Visualizer</a></li>
+
+                <li class="nav-item"><a href="7.html" class="nav-link text-light p-2 mb-2 current noselect"><i class="fas fa-file-code text-light fa-lg mr-3"></i>Praktikum 7 - Audio Recording</a></li>
+
+                <li class="nav-item"><a href="8.html" class="nav-link text-light p-2 mb-2 sidebar-link noselect"><i class="fas fa-file-code text-light fa-lg mr-3"></i>Praktikum 8 - ..</a></li>
+
+                <hr>
+                
+                <li class="nav-item"><a style="font-size: 12px;" href="uts/index.html" class="nav-link text-light p-2 mb-2 sidebar-link noselect"><i class="fas fa-file-code text-light fa-lg mr-3 "></i>UTS - Multimedia Online</a></li>
+
+              </ul>
+            </div>
+      </div>
+    </nav>
+    <!-- end of navbar -->
+
+
+
+  
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
+
+
+
+
+
+
