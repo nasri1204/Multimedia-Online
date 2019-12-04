@@ -74,11 +74,11 @@
       var audio = document.createElement('audio');
       var deleteButton = document.createElement('button');
       var downloadButton = document.createElement('button');
-      var recordedChunks = [];
+      /*var recordedChunks = [];
       var options = { mimeType: "audio/mp3; codecs=vp9" };
       mediaRecorder = new MediaRecorder(stream);
       mediaRecorder.ondataavailable = handleDataAvailable;
-      mediaRecorder.start();
+      mediaRecorder.start();*/
 
       clipContainer.classList.add('clip');
       audio.setAttribute('controls', '');
@@ -103,32 +103,23 @@
       audio.src = audioURL;
       console.log("recorder stopped");
 
+      downloadButton.onclick = function(){
+        var a = document.createElement("a");
+        document.body.appendChild(a);
+        a.style = "display: none";
+        a.href = audioURL;
+        a.download = "audio.mp3";
+        a.click();
+        window.URL.revokeObjectURL(audioURL);
+      
+      }
+
       deleteButton.onclick = function(e) {
         evtTgt = e.target;
         evtTgt.parentNode.parentNode.removeChild(evtTgt.parentNode);
       }
 
-        downloadButton.onclick = function(e) {
-        var blob = new Blob(recordedChunks, { type: 'mp3'});
-        var url = URL.createObjectURL(blob);
-        var a = document.createElement('a');
-        document.body.appendChild(a);
-        a.style = 'display: none';
-        a.href = url;
-        a.download = 'record.mp3';
-        a.click();
-        window.URL.revokeObjectURL(url);
-      }
       
-      function handleDataAvailable(e){
-        if(e.data.size > 0){
-          recordedChunks.push(e.data);
-          console.log(recordedChunks);
-          download()
-        }else{
-          // ..
-        }
-      }
     }
 
     mediaRecorder.ondataavailable = function(e) {
