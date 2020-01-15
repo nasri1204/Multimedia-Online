@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>UAS</title>
+
+	<style type="text/css">
+		body {
+  font-family: 'Lato', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+#swapCamera{
+  font-family: Lato;
+  font-weight: bold;
+  color: #33cbc3;
+  position: relative;
+  left: 5px;
+}
+
+.appWrapper h2 {
+  text-align: center;
+  color: #fff;
+  margin: 0 0 12px 0;
+  padding: 12px;
+  background: #33cbc3;
+  text-shadow: 1px 1px 0px rgba(0,0,0,0.1);
+  border-bottom: 1px solid rgba(0,0,0,0.2);
+  box-shadow: 0px 2px 5px rgba(0,0,0,0.2);
+}
+.appWrapper {
+  position: relative;
+}
+div.collidascopeContainer {
+  background: #33cbc3;
+  clip-path: circle(50%);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  height: 300px;
+  width: 300px;
+  margin: 0 auto;
+}
+video {
+  height: 225px;
+  width: 300px;
+  position: absolute;
+  left: 0px;
+  top: -75px;
+  clip-path: polygon(21px 0, 279px 0, 150px 100%); 
+  transform-origin: 150px 100%;
+}
+#video1 {
+  transform: scaleX(-1);
+}
+#video2 {
+  transform: rotate(60deg);
+}
+#video3{
+  transform: scaleX(-1) rotate(240deg);
+}
+#video4 {
+  transform: rotate(180deg)
+}
+#video5 {
+  transform: scaleX(-1) rotate(120deg)
+}
+#video6 {
+  transform: rotate(300deg);
+}
+#take-photo {
+  background: #33cbc3;
+  border-radius: 50%;
+  color: transparent;
+  height: 50px;
+  width: 50px;
+  display: block;
+  margin: 48px auto 0 ;
+  box-shadow: 0 0 0 10px rgba(255,255,255,0.3), 0 0 0 15px #33cbc3;
+}
+	</style>
+</head>
+<body>
+
+<div class="appWrapper">
+  <h2>UAS Multimedia Online</h2>
+  <div class="collidascopeContainer">
+    <video id="video1" id='videoStream' class="video" autoplay></video>
+    <video id="video2" class="video" autoplay></video>
+    <video id="video3" class="video" autoplay></video>
+    <video id="video4" class="video" autoplay></video>
+    <video id="video5" class="video" autoplay></video>
+    <video id="video6" class="video" autoplay></video>
+  </div>
+  <div class="controls">
+    <a href="#" id="take-photo" title="Take Photo"><i class="material-icons"></i></a>
+    <a id='swapCamera'>Hasil :</a>
+  </div>
+  <img id="snap">
+  <canvas></canvas>
+</div>
+
+<script type="text/javascript">
+	document.addEventListener('DOMContentLoaded', function () {
+
+  var video = document.querySelector('#videoStream'),
+      take_photo_btn = document.querySelector('#take-photo'),
+      swapCameraBtn = document.querySelector('#swapCamera'),
+      image = document.querySelector('#snap'),
+      cameraDirection = 'environment';
+  
+  function initiate() { 
+    // Get access to the camera!
+    if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        // Not adding `{ audio: true }` since we only want video now
+      if (window.stream) {
+        window.stream.getTracks().forEach(function(track) {
+          track.stop();
+        });
+      }
+      navigator.mediaDevices.getUserMedia({ video: {advanced: [{
+                facingMode: cameraDirection
+            }] }}).then(function(stream) {
+
+            video1.srcObject = stream;
+            video1.play();
+            video2.srcObject = stream;
+            video2.play();
+          video3.srcObject = stream;
+            video3.play();
+          video4.srcObject = stream;
+            video4.play();
+          video5.srcObject = stream;
+            video5.play();
+          video6.srcObject = stream;
+            video6.play();
+        });
+    }
+  }
+  initiate();
+  
+  swapCameraBtn.addEventListener("click", function(e) {
+    e.preventDefault();
+    swapCamera();
+  });
+  
+  take_photo_btn.addEventListener("click", function(e) {
+
+    e.preventDefault();
+
+    var snap = takeSnapshot();  
+
+    // Show image. 
+    image.setAttribute('src', snap);
+    image.classList.add("visible");
+
+    // Enable delete and save buttons
+    // delete_photo_btn.classList.remove("disabled");
+    // download_photo_btn.classList.remove("disabled");
+
+    // Set the href attribute of the download button to the snap url.
+    // download_photo_btn.href = snap;
+
+    // Pause video playback of stream.
+    video.pause();
+
+  });
+  
+  function swapCamera() {
+    video.pause();
+    if(cameraDirection === 'environment') {
+      cameraDirection = 'user';
+    } else {
+      cameraDirection = 'environment';
+    } 
+    initiate();
+  }
+  
+  function takeSnapshot() {
+    // Here we're using a trick that involves a hidden canvas element.  
+
+    var hidden_canvas = document.querySelector('canvas'),
+        context = hidden_canvas.getContext('2d');  
+    var width = video1.videoWidth,
+        height = video1.videoHeight;
+
+    if (width && height) {
+
+      // Setup a canvas with the same dimensions as the video.
+      hidden_canvas.width = width;
+      hidden_canvas.height = height;
+
+      // Make a copy of the current frame in the video on the canvas.
+      context.drawImage(video1, 0, 0, width, height);
+
+      // Turn the canvas image into a dataURL that can be used as a src for our photo.
+      return hidden_canvas.toDataURL('image/png');
+    }
+  }
+});
+</script>
+<div class="appWrapper">
+  <h2>UAS Multimedia Online</h2>
+</div>
+</body>
+</html>
